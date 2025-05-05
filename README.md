@@ -2,8 +2,9 @@
 # Formação Spark & Databricks
 
 ## Passo a passo que eu fiz para preparar o modulo 1 e 2
-   - Guia Passo a Passo: Instalando WSL2 e Ubuntu 24.04 LTS via PowerShell
-   - ⚙️ Etapas para configurar o Docker no WSL2 (Ubuntu)
+- [🖥️ Guia Passo a Passo: Instalando WSL2 e Ubuntu 24.04 LTS via PowerShell](1.Instalando_WSL2_e_Ubuntu.md)
+- [⚙️ Etapas para configurar o Docker no WSL2 (Ubuntu)](2.install_docker.md)
+
      
 ```
 **⚠️ Continuarei adicionando os passos de acordo com o que eu for realizando ⚠️**
