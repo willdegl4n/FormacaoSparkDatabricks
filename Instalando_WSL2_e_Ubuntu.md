@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/427f5392-f127-4e32-987c-c3f73ece4230)
+![image](img/wsl2linux.png)
 ## Guia Passo a Passo: Instalando WSL2 e Ubuntu 24.04 LTS via PowerShell
 
 Este guia irá te orientar na instalação do Subsistema Windows para Linux versão 2 (WSL2) e, em seguida, da distribuição Ubuntu 24.04 LTS utilizando o PowerShell no seu computador com Windows.
