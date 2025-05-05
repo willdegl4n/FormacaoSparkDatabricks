@@ -1,5 +1,8 @@
-# Formacao Spark & Databricks
-----------------------------------------------------------------------------------------------
+![image](https://github.com/user-attachments/assets/d2843ef1-b261-4d0d-bb46-62eb09245ae2)
+# Formação Spark & Databricks
+
+
+![image](https://github.com/user-attachments/assets/427f5392-f127-4e32-987c-c3f73ece4230)
 ## Guia Passo a Passo: Instalando WSL2 e Ubuntu 24.04 LTS via PowerShell
 
 Este guia irá te orientar na instalação do Subsistema Windows para Linux versão 2 (WSL2) e, em seguida, da distribuição Ubuntu 24.04 LTS utilizando o PowerShell no seu computador com Windows.
@@ -14,7 +17,6 @@ Este guia irá te orientar na instalação do Subsistema Windows para Linux vers
      - "VT-x"
      - "AMD-V"
 
----
 
 ### 🚀 Passo 1: Ativar o recurso do Subsistema Windows para Linux
 
@@ -81,6 +83,7 @@ Após isso, seu ambiente Ubuntu estará pronto para uso no WSL2!
 Parabéns! Agora você tem o WSL2 e o Ubuntu 24.04 LTS funcionando no seu Windows. Você pode abrir o `Ubuntu` digitando ubuntu no menu Iniciar ou usando o comando `wsl` no terminal.
 
 
+![image](https://github.com/user-attachments/assets/b151a951-94fb-444d-b9cc-64f2649ac57e)
 ------------------------------------------------------
 ## ⚙️ Etapas para configurar o Docker no WSL2 (Ubuntu)
 vamos configurar o Docker dentro do WSL
@@ -134,6 +137,10 @@ sudo systemctl status docker
 docker --version
 ```
 
+----------------------------------------------------------------------------------------------
+
 **⚠️ Continuarei adicionando os passos de acordo com o que eu for realizando ⚠️**
 
 `Willdeglan` do `SQL Dicas`
+
+----------------------------------------------------------------------------------------------
