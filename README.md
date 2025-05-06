@@ -9,7 +9,7 @@
   - 🪟 Windows
   - 🍎 MacOS
   - 🐧 Linux Ubuntu
-- [🛠️ Instalação e Configurando o Git](#)
+- [🛠️ Instalação e Configurando o Git ⚠️Ainda nao testei⚠️](3.instalar_clonar_edit_public_github.md)
   - Git Clone
   - Git Pull
 
