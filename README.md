@@ -12,11 +12,14 @@
 - [🛠️ Instalação e Configurando o Git ⚠️Parcialmente ok⚠️](mds/3.instalar_clonar_edit_public_github.md)
   - Git Clone
   - Git Pull
+- [📦 Baixando a imagem do conteiner e </> executando os primeiros comandos](#)
 
   
 ```
 **⚠️ Continuarei adicionando os passos de acordo com o que eu for realizando ⚠️**
 ```
+
+- [🐋 entendendo o Docker](#)
 
 ## `Willdeglan` do `SQL Dicas`
 
