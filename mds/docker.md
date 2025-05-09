@@ -8,7 +8,8 @@
 
 ## Docker
 
-Docker é uma plataforma de virtualização de containers que permite empacotar, distribuir e executar aplicações de forma isolada e consistente. Diferente das máquinas virtuais tradicionais, containers Docker compartilham o kernel do sistema operacional host, tornando-os mais leves e eficientes.
+Docker é uma plataforma de virtualização de containers que permite empacotar, distribuir e executar aplicações de forma isolada e consistente. 
+Diferente das máquinas virtuais tradicionais, containers Docker compartilham o kernel do sistema operacional host, tornando-os mais leves e eficientes.
 
 ## Principais benefícios do Docker
 
@@ -70,7 +71,8 @@ Aqui estão os comandos mais utilizados no dia a dia com Docker:
 [hub.docker.com](https://hub.docker.com/search?badges=official)
 ​
 
-O Docker Hub é o registro público oficial de imagens Docker - um repositório centralizado onde você pode encontrar, compartilhar e distribuir imagens Docker. Funciona de forma similar ao GitHub, mas para imagens Docker.
+O Docker Hub é o registro público oficial de imagens Docker - um repositório centralizado onde você pode encontrar, compartilhar e distribuir 
+imagens Docker. Funciona de forma similar ao GitHub, mas para imagens Docker.
 * Repositório oficial de imagens base e populares
 * Possibilidade de criar repositórios públicos e privados
 * Integração com sistemas de CI/CD
@@ -78,18 +80,23 @@ O Docker Hub é o registro público oficial de imagens Docker - um repositório 
 
 ## Como publicar imagens no Docker Hub
 Para publicar suas próprias imagens no Docker Hub, siga estes passos:
-Crie uma conta no Docker Hub [hub.docker.com](hub.docker.com)
-Faça login via terminal: docker login
-Tagueie sua imagem: docker tag local-image:tag username/repository:tag
-Envie a imagem: docker pushusername/repository:tag
+1. Crie uma conta no Docker Hub [hub.docker.com](hub.docker.com)
+2. Faça login via terminal: `docker login`
+3. Tagueie sua imagem: `docker tag local-image:tag username/repository:tag`
+4. Envie a imagem: `docker pushusername/repository:tag`
+
+````dockerfile
 docker build -t minha-app .
 docker tag minha-app fernandakipper/minha-app:1.0
 docker push fernandakipper/minha-app:1.0
-​
-Após o push, sua imagem estará disponível no Docker Hub e poderá ser baixada por outros usuários usando o comando docker pull username/repository:tag.
+````
+
+Após o push, sua imagem estará disponível no Docker Hub e poderá ser baixada por outros usuários usando o comando `docker pull username/repository:tag`.
 
 ## Docker Compose
-Docker Compose é uma ferramenta para orquestrar aplicações multi-containers, permitindo definir e executar múltiplos containers Docker de forma declarativa através de um único arquivo YAML. Com ele, você pode configurar todos os serviços, redes e volumes necessários para sua aplicação em um único lugar, facilitando o gerenciamento e deploy de aplicações complexas
+Docker Compose é uma ferramenta para orquestrar aplicações multi-containers, permitindo definir e executar múltiplos containers Docker de forma declarativa 
+através de um único arquivo YAML. Com ele, você pode configurar todos os serviços, redes e volumes necessários para sua aplicação em um único lugar, facilitando
+o gerenciamento e deploy de aplicações complexas
 ```
 services:
 # Aqui a gente bota o nome do serviço (como ele vai aparecer la no terminal depois)
@@ -120,27 +127,31 @@ networks:
 
 ## Networks
 No Docker Compose, as networks (redes) são mecanismos que permitem que containers se comuniquem entre si. Quando você coloca dois ou mais containers na mesma rede:
-Os containers podem se comunicar diretamente usando o nome do serviço como hostname
-Eles ficam isolados de containers que estão em outras redes
-A comunicação entre eles é mais segura e eficiente
+* Os containers podem se comunicar diretamente usando o nome do serviço como hostname
+* Eles ficam isolados de containers que estão em outras redes
+* A comunicação entre eles é mais segura e eficiente
+  
 Por exemplo, no arquivo docker-compose.yml acima, tanto o frontend quanto o backend estão na rede 'app-network'. Isso significa que:
-O frontend pode fazer requisições para o backend usando simplesmente "http://backend:3000"
-A comunicação entre eles é isolada de outros containers que não estão nessa rede
-Não é necessário expor portas internamente entre os serviços da mesma rede
+
+* O frontend pode fazer requisições para o backend usando simplesmente "http://backend:3000"
+* A comunicação entre eles é isolada de outros containers que não estão nessa rede
+* Não é necessário expor portas internamente entre os serviços da mesma rede
+  
 O driver 'bridge' é o tipo de rede padrão do Docker, criando uma rede virtual isolada para comunicação entre containers.
 
+
 ## Principais comandos
-docker-compose up - Inicia todos os serviços definidos no arquivo docker-compose.yml
-docker-compose up --build - Força o rebuild das imagens antes de iniciar os serviços
-docker-compose down - Para e remove todos os containers, redes e volumes definidos
-docker-compose ps - Lista todos os containers em execução do compose
-docker-compose logs - Exibe os logs de todos os serviços
-docker-compose logs [serviço] - Exibe os logs de um serviço específico
-docker-compose stop - Para todos os serviços sem remover os containers
-docker-compose start - Inicia serviços que foram parados
-docker-compose restart - Reinicia todos os serviços
-docker-compose exec [serviço] [comando] - Executa um comando em um serviço específico
-docker-compose run [serviço] bash - Acessa o terminal bash de um serviço específico
+* `docker-compose up` - Inicia todos os serviços definidos no arquivo docker-compose.yml
+* `docker-compose up --build` - Força o rebuild das imagens antes de iniciar os serviços
+* `docker-compose down` - Para e remove todos os containers, redes e volumes definidos
+* `docker-compose ps` - Lista todos os containers em execução do compose
+* `docker-compose logs` - Exibe os logs de todos os serviços
+* `docker-compose logs` [serviço] - Exibe os logs de um serviço específico
+* `docker-compose stop` - Para todos os serviços sem remover os containers
+* `docker-compose start` - Inicia serviços que foram parados
+* `docker-compose restart` - Reinicia todos os serviços
+* `docker-compose exec [serviço] [comando]` - Executa um comando em um serviço específico
+* `docker-compose run [serviço] bash` - Acessa o terminal bash de um serviço específico
 
 ## Flags comuns:
 -d - Executa em modo detached (background)
