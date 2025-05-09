@@ -1,10 +1,23 @@
 # 🐋 Intensivão Docker 🐳
-
-- [Principais benefícios do Docker](#principais-benefícios-do-docker)
-- [Dockerfile](#dockerfile)
-- [Principais comandos do Docker](#principais-comandos-do-docker)
-- [Gerenciamento de Imagens](#gerenciamento-de-imagens)
-
+- [Docker](#docker)
+	- [Principais benefícios do Docker](#principais-benefícios-do-docker)
+	- [Dockerfile](#dockerfile)
+	- [Principais comandos do Docker](#principais-comandos-do-docker)
+		- [Gerenciamento de Imagens](#gerenciamento-de-imagens)
+		- [Gerenciamento de Containers](#gerenciamento-de-Containers)
+  		- [Logs e Debugging](#logs-e-Debugging)
+     		- [Opções comuns do docker run](#opcoes-comuns-do-docker-run)
+       - [Dockerhub](#Dockerhub)
+         	- [Como publicar imagens do Docker Hub](#Como-publicar-imagens-no-Docker-Hub)
+- [Docker Compose](#Docker-Compose)
+	- [Networks](#Networks)
+	- [Principais comandos](#Principais-comandos)
+		- [Flags comuns:](#Flags-comuns:)
+	- [Adicionando comandos na inicialização](#Adicionando-comandos-na-inicialização)
+   		1. [Usando o comando command](#Usando-o-comando-command)
+   		2. [Usando entrypoint](#Usando-entrypoint)
+   		3. [Usando scripts de inicialização](#Usando-scripts-de-inicialização)
+   		4. [Usando depends_on com condition](#Usando-depends_on-com-condition)
 
 ## Docker
 
@@ -154,54 +167,68 @@ O driver 'bridge' é o tipo de rede padrão do Docker, criando uma rede virtual 
 * `docker-compose run [serviço] bash` - Acessa o terminal bash de um serviço específico
 
 ## Flags comuns:
--d - Executa em modo detached (background)
---build - Força o rebuild das imagens
-Quando você executa o docker-compose build ou usa a flag --build, o Docker Compose irá construir todas as imagens definidas no arquivo docker-compose.yml que têm a instrução 'build' especificada. É similar ao comando docker build, mas com algumas diferenças importantes:
-O Docker Compose automaticamente constrói todas as imagens necessárias em um único comando
-Ele mantém um cache das imagens construídas e só reconstrói o que foi modificado
-O contexto de build é definido no docker-compose.yml, não sendo necessário especificar o caminho do Dockerfile manualmente
-Por exemplo, no nosso docker-compose.yml acima, quando executamos docker-compose up --build, ele irá construir automaticamente as imagens tanto do backend quanto do frontend, usando os Dockerfiles especificados em seus respectivos diretórios.
---force-recreate - Força a recriação dos containers
--f - Especifica um arquivo compose alternativo
+* `-d` - Executa em modo detached (background)
+* `--build` - Força o rebuild das imagens
+  
+Quando você executa o `docker-compose build` ou usa a flag `--build`, o Docker Compose irá construir todas as imagens definidas no arquivo docker-compose.yml 
+que têm a instrução 'build' especificada. É similar ao comando `docker build`, mas com algumas diferenças importantes:
+* O Docker Compose automaticamente constrói todas as imagens necessárias em um único comando
+* Ele mantém um cache das imagens construídas e só reconstrói o que foi modificado
+* O contexto de build é definido no docker-compose.yml, não sendo necessário especificar o caminho do Dockerfile manualmente
+
+Por exemplo, no nosso docker-compose.yml acima, quando executamos `docker-compose up --build`, ele irá construir automaticamente as imagens tanto do backend 
+quanto do frontend, usando os Dockerfiles especificados em seus respectivos diretórios.
+* `--force-recreate` - Força a recriação dos containers
+* `-f` - Especifica um arquivo compose alternativo
 
 ## Adicionando comandos na inicialização
 No Docker Compose, existem várias maneiras de executar comandos durante a inicialização de um container. As principais são:
 
-## 1. Usando o comando command
+### 1. Usando o comando command
 O comando 'command' substitui o CMD definido no Dockerfile:
+
+````yaml
 services:
   app:
     build: .
     command: ["npm", "run", "dev"]
-​
+````
 
-## 2. Usando entrypoint
+### 2. Usando entrypoint
 O 'entrypoint' permite definir um script que será executado quando o container iniciar:
+
+````yaml
 services:
   app:
     build: .
     entrypoint: ["./init-script.sh"]
-​
+````
 
-## 3. Usando scripts de inicialização
+### 3. Usando scripts de inicialização
 Você pode criar um script shell e configurá-lo como entrypoint:
+
+````yaml
 #!/bin/bash
 # init-script.sh
 npm install
 npm run migrations
 npm start
-​
+````
+
 E no docker-compose.yml:
+````yaml
 services:
   app:
     build: .
     entrypoint: ["./init-script.sh"]
     volumes:
       - ./init-script.sh:/init-script.sh
+````
 ​
 
-## 4. Usando depends_on com condition
+### 4. Usando depends_on com condition
 Para garantir que serviços iniciem em uma ordem específica:
+````yaml
 services:
   app:
     build: .
@@ -217,3 +244,5 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+````
+....
