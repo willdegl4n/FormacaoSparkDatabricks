@@ -1,0 +1,45 @@
+(base) willdeglan@willdeglan-Inspiron-5547:~/vscode$ cd formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts
+
+(base) willdeglan@willdeglan-Inspiron-5547:~/vscode/formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts$ ls
+Dockerfile  pr-3-app.py  users.json
+
+(base) willdeglan@willdeglan-Inspiron-5547:~/vscode/formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts$ docker images 
+REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
+bitnami/spark   3.5       1a9e2334c4c8   3 days ago     1.35GB
+bitnami/spark   latest    1a9e2334c4c8   3 days ago     1.35GB
+hello-world     latest    74cc54e27dc4   3 months ago   10.1kB
+
+(base) willdeglan@willdeglan-Inspiron-5547:~/vscode/formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+(base) willdeglan@willdeglan-Inspiron-5547:~/vscode/formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts$ docker run -d --name sqldicas-novo \
+  -v /home/willdeglan/vscode/formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts:/app \
+  -w /app \
+  bitnami/spark:latest \
+  tail -f /dev/null
+e13ad150879088aca7a1e3c00f017ceb7e749a6fa6868e2b7eff330f46907cf8
+
+(base) willdeglan@willdeglan-Inspiron-5547:~/vscode/formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts$ docker exec sqldicas-novo ls -la /app
+total 20
+drwxrwxr-x 2 1000 1000 4096 May 12 16:07 .
+drwxr-xr-x 1 root root 4096 May 12 19:51 ..
+-rw-rw-r-- 1 1000 1000  307 May 12 16:07 Dockerfile
+-rw-rw-r-- 1 1000 1000  186 May 12 16:07 pr-3-app.py
+-rw-rw-r-- 1 1000 1000  330 May 12 16:07 users.json
+
+(base) willdeglan@willdeglan-Inspiron-5547:~/vscode/formacao/frm-spark-databricks-mec/src/spark/mod-1/scripts$ docker exec sqldicas-novo spark-submit pr-3-app.py
+Exception in thread "main" java.lang.IllegalArgumentException: basedir must be absolute: ?/.ivy2/local
+        at org.apache.ivy.util.Checks.checkAbsolute(Checks.java:48)
+        at org.apache.ivy.plugins.repository.file.FileRepository.setBaseDir(FileRepository.java:137)
+        at org.apache.ivy.plugins.repository.file.FileRepository.<init>(FileRepository.java:44)
+        at org.apache.spark.deploy.SparkSubmitUtils$.createRepoResolvers(SparkSubmit.scala:1274)
+        at org.apache.spark.deploy.SparkSubmitUtils$.buildIvySettings(SparkSubmit.scala:1381)
+        at org.apache.spark.util.DependencyUtils$.resolveMavenDependencies(DependencyUtils.scala:182)
+        at org.apache.spark.deploy.SparkSubmit.prepareSubmitEnvironment(SparkSubmit.scala:339)
+        at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:969)
+        at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:199)
+        at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:222)
+        at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:91)
+        at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1125)
+        at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1134)
+        at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
