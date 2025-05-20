@@ -1,3 +1,65 @@
+- Instalação Local do Spark
+  - Windows
+  - macOS
+  - Linux (Ubuntu/Debian)
+    
+- Primeiros Passos com o Spark-Shell
+  - Iniciando o Spark Shell
+  - Comandos básicos
+  - Exemplos de shell do PySpark
+  - Trabalhando com dados do projeto
+    
+- Primeiros passos com Spark-Submit
+  - O que é Spark-Submit?
+  - Etapa 1: Entendendo o aplicativo atualizado
+  - Etapa 2: Preparação para a execução
+  - Etapa 3: Executando com Spark-Submit
+  - Etapa 4: Explorando Spark-Submit --help
+  - Etapa 5: Exercício prático
+
+- Primeiros passos com Spark e Docker ( *o meu laboratório começa aqui* )
+  - Por que o Docker?
+  - Etapa 1: Puxe a imagem do Docker
+  - Etapa 2: Preparar seus arquivos
+  - Etapa 3: executar um contêiner persistente
+  - Etapa 4: executar Spark-Submit
+  - Etapa 5: Personalização com Spark-Submit
+  - Etapa 6: Exercício prático
+  - Etapa 7: Para o contêiner
+
+- Criando sua primeira imagem personalizada do Docker no Spark
+  - Por que criar uma imagem personalizada?
+  - Etapa 1: configure seu Dockerfile
+  - Etapa 2: Crie uma imagem personalizada
+  - Etapa 3: execute sua imagem personalizada
+  - Etapa 4: personalize com Spark-Submit
+  - Etapa 5: Exercício prático
+  - Etapa 6: Pare o contêiner
+
+- Cluster Spark com implantação do Docker
+  - Configuração do ambiente
+    1. Clonando o Repositório
+    2. Navegue até o diretório de construção Build
+    3. Crie o arquivo .env
+    4. Crie os diretórios necessários
+    5. Chore imagens do Docker
+    6. Iniciie o Spark Cluster
+    7. Verificar implantação
+    8. Pare o Spark Cluster
+  - Componentes do Cluster
+  - Acessando Serviços
+  - Tecnologias Incluídas
+  - Solução de problemas
+  - Arquivos de configuração
+ 
+- [Executando seu primeiro aplicativo Spark distribuído com o Docker Compose](#pr-7-executando-seu-primeiro-aplicativo-spark-distribuído-com-o-docker-compose)
+  - [Etapa 1: preparar o script do aplicativo](#etapa-1-preparar-o-script-do-aplicativo)
+  - [Etapa 2: execute o aplicativo no cluster](#etapa-2-execute-o-aplicativo-no-cluster)
+  - [Etapa 3: Monitore o trabalho](#etapa-3-monitore-o-trabalho)
+  - [Etapa 4: Exercícios práticos](#etapa-4-exercícios-práticos)
+  - [Troubleshooting](#troubleshooting-3)
+    
+
 # pr-1: Instalação Local do Spark 
 
 Este guia cobre a instalação do Apache Spark localmente no **Windows**, **macOS** e **Linux**. Siga os passos para o seu sistema operacional para configurar o Spark.
