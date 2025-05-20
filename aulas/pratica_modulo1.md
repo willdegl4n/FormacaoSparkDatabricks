@@ -1,4 +1,4 @@
-`Parei a tradução na linha 273`
+`Parei a tradução na linha 462`
 
 # pr-1: Instalação Local do Spark 
 
@@ -269,27 +269,23 @@ de `scripts/`diretório, e exploraremos as opções `spark-submit`, incluindo in
 
 ## Pré-requisitos
 
----
-\parei aqui
----
-
-- Spark 3.5.5 installed locally (see `pr-1.md`).
-- Terminal access: Command Prompt (Windows), Terminal (macOS/Linux).
-- The project files in `src/spark/mod-1/scripts/`:
+- Spark 3.5.5 instalado localmente (veja `pr-1.md`).
+- Acesso ao terminal: Prompt de Comando (Windows), Terminal (macOS/Linux).
+- Os arquivos do projeto em `src/spark/mod-1/scripts/`:
   - `pr-3-app.py`
-  - `users.json` (moved from `data/` to `scripts/`)
+  - `users.json` (movido de `data/` para `scripts/`)
 
 ---
 
-## What is Spark-Submit?
+## O que é Spark-Submit?
 
-`spark-submit` is Spark’s command-line tool for submitting applications to a Spark cluster—or running them locally, as we’ll do here. It’s the bridge from interactive exploration (Spark Shell) to scripted execution, perfect for production workflows.
+`spark-submit`é a ferramenta de linha de comando do Spark para enviar aplicativos a um cluster Spark — ou executá-los localmente, como faremos aqui. É a ponte entre a exploração interativa (Spark Shell) e a execução com script, perfeita para workflow de produção.
 
 ---
 
-## Step 1: Understanding the Updated Application
+## Etapa 1: Entendendo o aplicativo atualizado
 
-Since `users.json` is now in `scripts/`, here’s the updated `pr-3-app.py`:
+Ja que `users.json`está em `scripts/`, aqui está a atualização do `pr-3-app.py`:
 
 ```python
 from pyspark.sql import SparkSession
@@ -304,15 +300,15 @@ df_users.show(3)
 spark.stop()
 ```
 
-### Breakdown
-- **SparkSession**: Initializes Spark with the name "pr-3-app".
-- **Reading Data**: Loads `users.json` from the same directory (`scripts/`) into a DataFrame (`df_users`).
-- **Operations**:
-  - `count()`: Counts rows (1 in our case).
-  - `show(3)`: Displays up to 3 rows (only 1 exists).
-- **Cleanup**: `spark.stop()` closes the session.
+### Explicação
+- **SparkSession**: Inicializa o Spark com o nome "pr-3-app".
+- **Leitura de dados**: Carrega  `users.json` do mesmo diretório (`scripts/`) para um DataFrame (`df_users`).
+- **Operações **:
+  - `count()`: Conta linhas (1 no nosso caso).
+  - `show(3)`: Exibe até 3 linhas (mas existe apenas 1).
+- **Limpeza **: `spark.stop()` fecha a sessão.
 
-The `users.json` content remains:
+O conteúdo de `users.json` permanece: 
 
 ```json
 {"user_id":1,"country":"BR","city":"Palmas","phone_number":"(51) 4463-9821","email":"ofelia.barbosa@bol.com.br","uuid":"94a1eff2-4dce-c26e-cea4-3c55b1f8418b","delivery_address":"Sobrado 76 0225 Viela Pérola, Córrego do Bom Jesus, AL 13546-174","user_identifier":"709.528.582-65","dt_current_timestamp":"2025-02-05 21:50:45.932"}
@@ -320,42 +316,42 @@ The `users.json` content remains:
 
 ---
 
-## Step 2: Preparing to Run
+## Etapa 2: Preparação para a execução
 
-1. **Navigate to the Directory**:
-   - Open your terminal and change to `src/spark/mod-1/scripts/`:
+1. **Navegue até o Diretório**:
+   - Abra seu terminal e vá para `src/spark/mod-1/scripts/`:
      ```bash
      cd path/to/src/spark/mod-1/scripts
      ```
-     Replace `path/to/` with your repo’s location.
+     Substitua `path/to/` pela localização do seu repositório.
 
-2. **Check Files**:
-   - Confirm `pr-3-app.py` and `users.json` are both in `scripts/`.
+2. **Verificar arquivos**:
+   - Confirme que `pr-3-app.py` e `users.json` então em `scripts/`.
 
-3. **Verify Spark**:
-   - Run `spark-submit --version` to ensure Spark 3.5.5 is ready.
+3. **Verificar Spark**:
+   - execute `spark-submit --version` para garantir que o Spark 3.5.5 esteja pronto.
 
 ---
 
-## Step 3: Running with Spark-Submit
+## Etapa 3: Executando com Spark-Submit
 
-### Basic Command
-Execute the script:
+### Comando Básico
+Execute o script:
 
 ```bash
 spark-submit pr-3-app.py
 ```
 
-### What Happens?
-1. Spark starts a local cluster.
-2. The script runs:
-   - Loads `users.json` from `scripts/`.
-   - Outputs the row count (`1`).
-   - Displays the DataFrame.
-3. Spark shuts down.
+### O que acontece?
+1. O Spark inicia um cluster local.
+2. O script é executado:
+   - Carrega  `users.json` from `scripts/`.
+   - Gera a contagem de linhas (`1`).
+   - Exibe o DataFrame.
+3. O Spark desliga.
 
-### Expected Output
-After logs, you’ll see:
+### Output esperada
+Após os logs, você verá:
 
 ```
 1
@@ -368,78 +364,78 @@ After logs, you’ll see:
 
 ---
 
-## Step 4: Exploring Spark-Submit --help
+## Etapa 4: Explorando Spark-Submit --help
 
-Run `spark-submit --help` in your terminal to see all options. Here are some interesting ones to discuss:
+Execute `spark-submit --help` no seu terminal para ver todas as opções. Aqui estão algumas interessantes para discutir:
 
-### Key Options
+### Opções de Chaves
 1. **`--master`**:
-   - Specifies where to run the app (e.g., `local`, a cluster URL).
-   - Example:
+   - Especifica onde executar o aplicativo (por exemplo `local`, uma URL de cluster).
+   - Exemplo:
      ```bash
      spark-submit --master local[2] pr-3-app.py
      ```
-     - `local[2]`: Runs locally with 2 cores. Try `local[*]` for all available cores.
+     - `local[2]`: Executa localmente com 2 núcleos. Teste `local[*]` com todos os núcleos disponíveis.
 
 2. **`--deploy-mode`**:
-   - Chooses where the driver runs: `client` (local machine) or `cluster` (on a cluster).
-   - Example (local default is `client`):
+   - Escolhe onde o driver é executado:  `client` (máquina local) ou `cluster` (em um cluster).
+   - Examplo (o local default é `client`):
      ```bash
      spark-submit --deploy-mode client pr-3-app.py
      ```
 
 3. **`--conf`**:
-   - Sets custom Spark configurations.
-   - Example: Limit memory and enable logging:
+   - Define configurações personalizadas do Spark.
+   - Exemplo: limitar a memória e habilitar o registro:
      ```bash
      spark-submit --conf spark.driver.memory=2g --conf spark.eventLog.enabled=true pr-3-app.py
      ```
-     - `spark.driver.memory=2g`: Sets driver memory to 2 GB.
-     - `spark.eventLog.enabled=true`: Logs events (check `SPARK_HOME/logs` if configured).
+     - `spark.driver.memory=2g`: Define a memória do driver para 2 GB.
+     - `spark.eventLog.enabled=true`: Registra eventos (verifique se `SPARK_HOME/logs` está configurado).
 
 4. **`--py-files`**:
-   - Adds Python dependencies (e.g., `.py` or `.zip` files).
-   - Example: If `pr-3-app.py` used a helper module `utils.py`:
+   - Adiciona dependências do Python (por exemplo, `.py` ou arquivos `.zip`).
+   - Exemplo: Se `pr-3-app.py` usar um modulo auxiliar `utils.py`:
      ```bash
      spark-submit --py-files utils.py pr-3-app.py
      ```
 
 5. **`--files`**:
-   - Uploads files to the working directory (useful for data or configs).
-   - Example: If `users.json` were elsewhere:
+   - Carrega arquivos para o diretório de trabalho (útil para dados ou configurações).
+   - Exemplo: Se `users.json` estivésse em outro lugar:
      ```bash
      spark-submit --files /path/to/users.json pr-3-app.py
      ```
-     - Note: Our script assumes `users.json` is local, so this isn’t needed now.
+     - Observação: nosso script que é local assume `users.json`, então isso não é necessário agora.
 
-### Try It!
-Combine options:
+### Experimente!
+Options combinadas:
 ```bash
 spark-submit --master local[4] --name "GOATJob" --conf spark.driver.memory=4g pr-3-app.py
 ```
-- Uses 4 cores, names the job "GOATJob," and allocates 4 GB to the driver.
+- Usa 4 núcleos, nomeia o trabalho "GOATJob" e aloca 4 GB para o driver.
 
 ---
 
-## Step 5: Hands-On Exercise
+## Etapa 5: Exercício prático
 
-Let’s make this class legendary with a practical task!
+Vamos tornar esta aula lendária com uma tarefa prática!
 
-1. **Modify the Script**:
-   - Copy `pr-3-app.py` to `pr-3-exercise.py`.
-   - Add this before `spark.stop()`:
+1. **Modifique o script**:
+   - Copie `pr-3-app.py` para `pr-3-exercise.py`.
+   - Antes, adicione isso: `spark.stop()`:
      ```python
      df_users.select("email", "user_identifier").show()
      ```
-   - Save it.
+   - Salve-o.
 
-2. **Run with Options**:
+2. **Executar com opções**:
    ```bash
    spark-submit --master local[2] --name "UserExtract" pr-3-exercise.py
    ```
 
-3. **Expected Output**:
-   - Original `count` and `show(3)` output, then:
+3. **Output esperado**:
+   - Original `count` e exibe `show(3)`, então:
      ```
      +--------------------+--------------------+
      |               email|    user_identifier|
@@ -448,22 +444,22 @@ Let’s make this class legendary with a practical task!
      +--------------------+--------------------+
      ```
 
-4. **Challenge**:
-   - Update `pr-3-exercise.py` to filter for `city == "Palmas"` and show `email` and `city`. Run it with `--verbose`:
+4. **Desafio **:
+   - Atualize  `pr-3-exercise.py` para filtrar por `city == "Palmas"` e exibir `email` e `city`. Execute com `--verbose`:
      ```bash
      spark-submit --verbose pr-3-exercise.py
      ```
-     - Hint: Use `df_users.filter(df_users.city == "Palmas").select("email", "city").show()`.
+     - Dica: Use `df_users.filter(df_users.city == "Palmas").select("email", "city").show()`.
 
 ---
 
-## Troubleshooting
+## Solução de problemas
 
-- **FileNotFoundException**: Confirm `users.json` is in `scripts/`. Use an absolute path if needed (e.g., `/path/to/scripts/users.json`).
-- **Option Errors**: Check `spark-submit --help` for correct syntax.
-- **Resource Issues**: Adjust `--driver-memory` (e.g., `4g`) if it fails.
+- **FileNotFoundException**: Confirme se `users.json` está em `scripts/`. Use o caminho absoluto, se necessário (por exemplo: `/path/to/scripts/users.json`).
+- **Opções de Erros**: verifique em `spark-submit --help`se a syntaxe está correta.
+- **Problemas de recurso**: Se falhar, ajuste o `--driver-memory` (por exemplo: `4g`).
 
-
+----
 # pr-4: First Steps with Spark & Docker
 
 Welcome to the fourth module of this training course! After mastering local Spark installation (`pr-1.md`), Spark Shell (`pr-2.md`), and `spark-submit` (`pr-3.md`), let’s run Spark in a Docker container using `bitnami/spark:latest`. We’ll map our `src/spark/mod-1/scripts/` directory (containing `pr-3-app.py` and `users.json`) to `/app`, set the working directory correctly, and keep the container running for easy access. This is a GOAT (Greatest of All Time) class—let’s get it right!
