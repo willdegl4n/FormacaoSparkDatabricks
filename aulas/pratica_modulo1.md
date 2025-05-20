@@ -1,5 +1,3 @@
-`Parei a tradução na linha 890`
-
 # pr-1: Instalação Local do Spark 
 
 Este guia cobre a instalação do Apache Spark localmente no **Windows**, **macOS** e **Linux**. Siga os passos para o seu sistema operacional para configurar o Spark.
@@ -888,54 +886,54 @@ docker rm my-spark-container
 
 ----
 
-# pr-6: Spark Cluster with Docker Deployment
+# pr-6: Cluster Spark com implantação do Docker
 
-## Prerequisites
+## Pré-requisitos
 - Docker
 - Docker Compose
 - Git
 
-## Environment Setup
+## Configuração do ambiente
 
-### 1. Clone the Repository
+### 1. Clonando o Repositório
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/owshq-mec/frm-spark-databricks-mec.git
+cd /home/willdeglan/github/frm-spark-databricks-mec/
 ```
 
-### 2. Navigate to Build Directory
+### 2. Navegue até o diretório de construção Build 
 ```bash
 cd build
 ```
 
-### 3. Create .env File
-Create a `.env` file in the build directory with the following content:
+### 3. Crie o arquivo .env
+Crie um arquivo `.env` no diretório build com o seguinte conteúdo:
 ```bash
-APP_SRC_PATH=/absolute/path/to/repo/build/src
-APP_STORAGE_PATH=/absolute/path/to/repo/build/storage
-APP_LOG_PATH=/absolute/path/to/repo/build/logs
-APP_METRICS_PATH=/absolute/path/to/repo/build/metrics
+APP_SRC_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/src
+APP_STORAGE_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/storage
+APP_LOG_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/logs
+APP_METRICS_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/metrics
 ```
 
-**Note:** Replace `/absolute/path/to/repo/` with the full path to your project directory.
+**Nota:** Substitua `/home/willdeglan/github/frm-spark-databricks-mec/` pelo caminho completo para o diretório do seu projeto.
 
-### 4. Create Required Directories
+### 4. Crie os diretórios necessários
 ```bash
 mkdir -p src storage logs metrics
 ```
 
-### 5. Build Docker Images
+### 5. Crie imagens do Docker
 ```bash
 docker build -t owshq-spark:3.5 -f Dockerfile.spark .
 docker build -t owshq-spark-history-server:3.5 -f Dockerfile.history .
 ```
 
-### 6. Start Spark Cluster
+### 6. Inicie o Spark Cluster
 ```bash
 docker-compose up -d
 ```
 
-### 7. Verify Deployment
+### 7. Verificar implantação
 ```bash
 docker ps
 
@@ -945,21 +943,21 @@ docker logs spark-worker-2
 docker logs spark-history-server
 ```
 
-### 8. Stop Spark Cluster
+### 8. Pare o Spark Cluster
 ```bash
 docker-compose down
 ```
 
-## Cluster Components
-- **Spark Master**: Runs on port 8080
-- **Spark Workers**: 3 workers configured
-- **Spark History Server**: Runs on port 18080
+## Componentes do Cluster
+- **Spark Master**: roda na porta 8080
+- **Spark Workers**: 3 workers configurado
+- **Spark History Server**: executado na porta 18080
 
-## Accessing Services
-- Spark Master UI: http://localhost:8080
-- Spark History Server: http://localhost:18080
+## Acessando Serviços
+- Interface (UI) do Spark Master: http://localhost:8080
+- Servidor de histórico do Spark: http://localhost:18080
 
-## Included Technologies
+## Tecnologias Incluídas
 - Spark 3.5.0
 - Python 3
 - PySpark
@@ -973,45 +971,46 @@ docker-compose down
 - Verify network ports are not in use by other services
 
 ## Configuration Files
-- `docker-compose.yml`: Defines the multi-container Spark cluster
-- `Dockerfile.spark`: Builds the base Spark image
-- `Dockerfile.history`: Builds the Spark History Server image
-- `config/spark/spark-defaults.conf`: Spark configuration
-- `config/spark/log4j2.properties`: Logging configuration
+- `docker-compose.yml`: Define o cluster Spark de multi-container
+- `Dockerfile.spark`: Builda (cria) a imagem base do Spark
+- `Dockerfile.history`: Builda (cria) a imagem do Spark History Server
+- `config/spark/spark-defaults.conf`: Configuração do Spark
+- `config/spark/log4j2.properties`: Configuração de registro
 
-  
-# pr-7: Running Your First Distributed Spark Application with Docker Compose
+----
 
-In `pr-6.md`, you set up a distributed Spark cluster with Docker Compose. Now, let’s harness that cluster to run a PySpark application! This class uses `get-users-json.py` in `src/app/` to process `users.json` from `src/storage/`, executing it on the cluster from outside Docker. We’ll monitor the job and dive into hands-on exercises to master distributed Spark.
+# pr-7: Executando seu primeiro aplicativo Spark distribuído com o Docker Compose
+
+Em `pr-6.md`, você configura um cluster Spark distribuído com o Docker Compose. Agora, vamos aproveitar esse cluster para executar uma aplicação PySpark! Esta classe usa `get-users-json.py` em `src/app/` para processar `users.json` em `src/storage/`, executando-o no cluster de fora do Docker. Monitoraremos a tarefa e faremos exercícios práticos para dominar o Spark distribuído.
 
 ---
 
-## Prerequisites
+## Pré-requisitos
 
-- **Docker and Docker Compose**: Installed and running (Windows, macOS, or Linux).
-- **Spark Cluster**: Running from `pr-6.md`. Start it from `/build/` if needed:
+- **Docker e Docker Compose**: instalados e em execução (Windows, macOS ou Linux).
+- **Spark Cluster**: Executando a partir de `pr-6.md`.  Inicie-o a partir de `/build/` se precisar:
   ```bash
   cd /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/build/
   docker-compose up -d
   ```
-- **Files**:
-  - Application: `src/app/get-users-json.py`
-  - Data: `src/storage/users.json`
-- **Terminal Access**: Command Prompt (Windows) or Terminal (macOS/Linux).
+- **Arquivos**:
+  - Applicação: `src/app/get-users-json.py`
+  - Dados: `src/storage/users.json`
+- **Acesso ao terminal**: Prompt de comando (Windows) ou Terminal (macOS/Linux).
 
 ---
 
-## Step 1: Prepare the Application Script
+## Etapa 1: preparar o script do aplicativo
 
-We’ll use your provided script, ensuring it’s ready for the cluster.
+Usaremos o script fornecido, garantindo que ele esteja pronto para o cluster.
 
-1. **Create `get-users-json.py`**:
-   - Navigate to `src/app/` (create it if it doesn’t exist):
+1. **Criar o `get-users-json.py`**:
+   - Navegue até `src/app/` (crie-o se não existir):
      ```bash
-     mkdir -p /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/app/
-     cd /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/app/
+     mkdir -p /home/willdeglan/github/frm-spark-databricks-mec/src/app/
+     cd /home/willdeglan/github/frm-spark-databricks-mec/src/app/
      ```
-   - Create `get-users-json.py`:
+   - Criar `get-users-json.py`:
      ```python
      """
      docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
@@ -1031,43 +1030,44 @@ We’ll use your provided script, ensuring it’s ready for the cluster.
 
      spark.stop()
      ```
-   - **Note**: The master isn’t specified here; `spark-submit` will handle it. The docstring shows the intended command.
+   - **Observação**: O Master não é especificado aqui; `spark-submit` ele o manipulará. A docstring mostra o comando pretendido.
 
-2. **Verify Data**:
-   - Ensure `users.json` is in `src/storage/`:
+2. **Verificar dados**:
+   - Certifique-se de que `users.json` está em `src/storage/`:
      ```bash
      ls -la /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/storage/
      ```
 
 ---
 
-## Step 2: Run the Application on the Cluster
+## Etapa 2: execute o aplicativo no cluster
 
-We’ll execute the script from outside the container, targeting the cluster’s master.
+Executaremos o script de fora do contêiner, visando o mestre do cluster.
 
-1. **Copy Script to Cluster**:
-   - For simplicity, copy `get-users-json.py` to `/build/` (mapped to `/app/` in `pr-6.md`):
+1. **Copiar script para cluster**:
+   - Para simplificar, copie `get-users-json.py` para `/build/` (mapeado para `/app/` em `pr-6.md`):
      ```bash
-     cp /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/app/get-users-json.py /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/build/
+     cp /home/willdeglan/github/frm-spark-databricks-mec/src/app/get-users-json.py /home/willdeglan/github/frm-spark-databricks-mec/build/
      ```
 
-2. **Run `spark-submit`**:
-   - Use your specified command (adjusted for path):
+2. **Executar `spark-submit`**:
+   - Use o comando especificado (ajustado para o caminho):
      ```bash
      docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
        --master spark://spark-master:7077 \
        --deploy-mode client \
        /app/get-users-json.py
      ```
-   - **Breakdown**:
-     - `docker exec -it spark-master`: Runs inside the `spark-master` container.
-     - `/opt/bitnami/spark/bin/spark-submit`: Path to `spark-submit`.
-     - `--master spark://spark-master:7077`: Connects to the cluster.
-     - `--deploy-mode client`: Driver runs via the container’s CLI.
-     - `/app/get-users-json.py`: Script path in the container (mapped from `/build/`).
+     
+   - **explicação**:
+     - `docker exec -it spark-master`: Executa dentro do container `spark-master`.
+     - `/opt/bitnami/spark/bin/spark-submit`: caminho para o `spark-submit`.
+     - `--master spark://spark-master:7077`: Conecta-se ao cluster.
+     - `--deploy-mode client`: O driver é executado por meio da CLI do contêiner.
+     - `/app/get-users-json.py`: Caminho do script no contêiner (mapeado de `/build/`).
 
-3. **Expected Output**:
-   - After logs:
+3. **Output esperado**:
+   - Depois dos logs:
      ```
      +--------------------+----+-----+--------------------+--------------------+--------------------+
      |    delivery_address|city|country|               email|         phone_number|                uuid|
@@ -1078,36 +1078,36 @@ We’ll execute the script from outside the container, targeting the cluster’s
 
 ---
 
-## Step 3: Monitor the Job
+## Etapa 3: Monitore o trabalho
 
-The Spark Web UI offers a window into your distributed job’s performance.
+A interface do usuário da Web do Spark oferece uma janela para o desempenho do seu trabalho distribuído.
 
-1. **Access the UI**:
-   - Open `http://localhost:8080` (mapped from `spark-master:8080` in `pr-6.md`).
-   - **Key Sections**:
-     - **Workers**: Lists active workers (e.g., `spark-worker-1`). Check their status, cores, and memory usage.
-     - **Running Applications**: Displays the job if still active.
-     - **Completed Applications**: Shows `get-users-json` post-run with an Application ID (e.g., `app-202304...`).
+1. **Acesse a Interface (IU)**:
+   - Abrir `http://localhost:8080` (mapeado de `spark-master:8080` em `pr-6.md`).
+   - **Seções principais**:
+     - **Workers**: lista os trabalhadores ativos (por exemplo, `spark-worker-1`). Verifique seu status, núcleos e uso de memória.
+     - **Aplicativos em execução**: exibe o trabalho se ainda estiver ativo.
+     - **Aplicativos concluídos**: Exibe `get-users-json` a pós-execução com um ID de aplicativo (por exemplo, `app-202304...`).
 
-2. **Explore Details**:
-   - Click the Application ID:
-     - **Stages**: Breaks down tasks (e.g., reading JSON, counting rows). Check task durations and parallelism.
-     - **Executors**: Shows which workers executed tasks, with metrics like input data size and shuffle activity.
-     - **Environment**: Lists Spark configs (e.g., master URL, memory settings).
-   - Confirm tasks were distributed (e.g., split across workers if multiple are active).
+2. **Explorar detalhes**:
+   - Clique no ID do aplicativo:
+     - **Stages**: divide tarefas (por exemplo, leitura de JSON, contagem de linhas). Verifica a duração e o paralelismo das tarefas.
+     - **Executors**: mostra quais trabalhadores executaram tarefas, com métricas como tamanho dos dados de entrada e atividade de embaralhamento.
+     - **Environment**: lista as configurações do Spark (por exemplo, URL mestre, configurações de memória).
+   - Confirme se as tarefas foram distribuídas (por exemplo, divididas entre os trabalhadores se houver vários ativos).
 
-3. **Why Monitor**:
-   - Identifies bottlenecks (e.g., slow workers), verifies distribution, and aids optimization.
+3. **Por que monitorar**:
+   - Identifica gargalos (por exemplo, trabalhadores lentos), verifica a distribuição e auxilia na otimização.
 
 ---
 
-## Step 4: Hands-On Exercises
+## Etapa 4: Exercícios práticos
 
-Let’s deepen your distributed Spark skills with three exercises.
+Vamos aprofundar suas habilidades distribuídas no Spark com três exercícios.
 
-### Exercise 1: Filter by Country
-1. **Modify `get-users-json.py`**:
-   - Update to filter by country:
+### Exercício 1: Filtrar por país
+1. **Modificar o `get-users-json.py`**:
+   - Atualizar para filtrar por país:
      ```python
      """
      docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
@@ -1126,20 +1126,22 @@ Let’s deepen your distributed Spark skills with three exercises.
 
      spark.stop()
      ```
-2. **Copy and Run**:
+     
+2. **Copiar e executar **:
    ```bash
-   cp /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/app/get-users-json.py /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/build/
+   cp /home/willdeglan/github/frm-spark-databricks-mec/src/app/get-users-json.py /home/willdeglan/github/frm-spark-databricks-mec/build/
    docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
      --master spark://spark-master:7077 \
      --deploy-mode client \
      /app/get-users-json.py
    ```
-3. **Check Output**: Shows only rows with `country = "BR"`.
-4. **Monitor**: Check the UI for the new job.
+   
+3. **Verificar saída**: mostra apenas linhas com `country = "BR"`.
+4. **Monitor**: verifique a interface do usuário para o novo trabalho.
 
-### Exercise 2: Aggregate by City
-1. **Create `get-users-by-city.py`**:
-   - In `src/app/`:
+### Exercício 2: Agregar por Cidade
+1. **Criar `get-users-by-city.py`**:
+   - em `src/app/`:
      ```python
      """
      docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
@@ -1158,15 +1160,16 @@ Let’s deepen your distributed Spark skills with three exercises.
 
      spark.stop()
      ```
-2. **Copy and Run**:
+2. **Copiar e executar**:
    ```bash
-   cp /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/app/get-users-by-city.py /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/build/
+   cp /home/willdeglan/github/frm-spark-databricks-mec/src/app/get-users-by-city.py /home/willdeglan/github/frm-spark-databricks-mec/build/
    docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
      --master spark://spark-master:7077 \
      --deploy-mode client \
      /app/get-users-by-city.py
    ```
-3. **Expected Output**:
+   
+3. **Output esperado**:
    ```
    +------+-----+
    |  city|count|
@@ -1174,25 +1177,32 @@ Let’s deepen your distributed Spark skills with three exercises.
    |Palmas|    1|
    +------+-----+
    ```
-4. **Monitor**: Verify task distribution in the UI.
+   
+4. **Monitor**: Verifique a distribuição de tarefas na interface do usuário (UI).
 
 ---
 
 ## Troubleshooting
 
-- **"Connection Refused"**:
-  - Check cluster status:
+- **"Conneção recusada"**:
+  - Verifique o status do cluster:
     ```bash
     docker ps
     ```
-  - View logs:
+    
+  - Verificações dos logs:
     ```bash
     docker logs spark-master
     ```
+    
 - **"FileNotFoundException"**:
-  - Verify `users.json` in `src/storage/` and volume mapping in `docker-compose.yml`.
-- **No Distribution**:
-  - Ensure multiple workers are listed in the UI.
+  - Verifique o `users.json` em `src/storage/` e o mapeamento do volume em `docker-compose.yml`.
+
+- **No Distribution (Sem distribuição)**:
+  - Garanta que vários trabalhadores estejam listados na interface do usuário (UI).
+ 
+
+    # até a proxima
 
 
 
