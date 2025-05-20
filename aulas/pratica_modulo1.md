@@ -1,56 +1,56 @@
-- Instalação Local do Spark
-  - Windows
-  - macOS
-  - Linux (Ubuntu/Debian)
+- [Instalação Local do Spark](#pr-1-instalação-local-do-spark)
+  - [Windows](#windows)
+  - [macOS](#macos)
+  - [Linux (Ubuntu/Debian)](#linux-ubuntudebian)
     
-- Primeiros Passos com o Spark-Shell
-  - Iniciando o Spark Shell
-  - Comandos básicos
-  - Exemplos de shell do PySpark
-  - Trabalhando com dados do projeto
+- [Primeiros Passos com o Spark-Shell](#pr-2-primeiros-passos-com-o-spark-shell)
+  - [Iniciando o Spark Shell](#iniciando-o-spark-shell)
+  - [Comandos básicos](#comandos-básicos)
+  - [Exemplos de shell do PySpark](#exemplos-de-shell-do-pyspark)
+  - [Trabalhando com dados do projeto](#trabalhando-com-dados-do-projeto)
     
-- Primeiros passos com Spark-Submit
-  - O que é Spark-Submit?
-  - Etapa 1: Entendendo o aplicativo atualizado
-  - Etapa 2: Preparação para a execução
-  - Etapa 3: Executando com Spark-Submit
-  - Etapa 4: Explorando Spark-Submit --help
-  - Etapa 5: Exercício prático
+- [Primeiros passos com Spark-Submit](#pr-3-primeiros-passos-com-spark-submit)
+  - [O que é Spark-Submit?](#o-que-é-spark-submit)
+  - [Etapa 1: Entendendo o aplicativo atualizado](#etapa-1-entendendo-o-aplicativo-atualizado)
+  - [Etapa 2: Preparação para a execução](#etapa-2-preparação-para-a-execução)
+  - [Etapa 3: Executando com Spark-Submit](#etapa-3-executando-com-spark-submit)
+  - [Etapa 4: Explorando Spark-Submit --help](#etapa-4-explorando-spark-submit---help)
+  - [Etapa 5: Exercício prático](#etapa-5-exercício-prático)
 
-- Primeiros passos com Spark e Docker ( *o meu laboratório começa aqui* )
-  - Por que o Docker?
-  - Etapa 1: Puxe a imagem do Docker
-  - Etapa 2: Preparar seus arquivos
-  - Etapa 3: executar um contêiner persistente
-  - Etapa 4: executar Spark-Submit
-  - Etapa 5: Personalização com Spark-Submit
-  - Etapa 6: Exercício prático
-  - Etapa 7: Para o contêiner
+- [Primeiros passos com Spark e Docker ( *o meu laboratório começa aqui* )](#pr-4-primeiros-passos-com-spark-e-docker--o-meu-lab-começa-aqui-)
+  - [Por que o Docker?](#por-que-o-docker)
+  - [Etapa 1: Puxe a imagem do Docker](#etapa-1-puxe-a-imagem-do-docker)
+  - [Etapa 2: Preparar seus arquivos](#etapa-2-prepare-seus-arquivos)
+  - [Etapa 3: executar um contêiner persistente](#etapa-3-executar-um-contêiner-persistente)
+  - [Etapa 4: executar Spark-Submit](#etapa-4-execute-spark-submit)
+  - [Etapa 5: Personalização com Spark-Submit](#etapa-5-personalização-com-spark-submit)
+  - [Etapa 6: Exercício prático](#etapa-6-exercício-prático)
+  - [Etapa 7: Para o contêiner](#etapa-7-parar-o-contêiner)
 
-- Criando sua primeira imagem personalizada do Docker no Spark
-  - Por que criar uma imagem personalizada?
-  - Etapa 1: configure seu Dockerfile
-  - Etapa 2: Crie uma imagem personalizada
-  - Etapa 3: execute sua imagem personalizada
-  - Etapa 4: personalize com Spark-Submit
-  - Etapa 5: Exercício prático
-  - Etapa 6: Pare o contêiner
+- [Criando sua primeira imagem personalizada do Docker no Spark](#pr-5-criando-sua-primeira-imagem-personalizada-do-docker-no-spark)
+  - [Por que criar uma imagem personalizada?](#por-que-criar-uma-imagem-personalizada)
+  - [Etapa 1: configure seu Dockerfile](#etapa-1-configure-seu-dockerfile)
+  - [Etapa 2: Crie uma imagem personalizada](#etapa-2-crie-a-imagem-personalizada)
+  - [Etapa 3: execute sua imagem personalizada](#etapa-3-execute-sua-imagem-personalizada)
+  - [Etapa 4: personalize com Spark-Submit](#etapa-3-execute-sua-imagem-personalizada)
+  - [Etapa 5: Exercício prático](#etapa-5-exercício-prático-1)
+  - [Etapa 6: Pare o contêiner](#etapa-6-pare-o-contêiner)
 
-- Cluster Spark com implantação do Docker
-  - Configuração do ambiente
-    1. Clonando o Repositório
-    2. Navegue até o diretório de construção Build
-    3. Crie o arquivo .env
-    4. Crie os diretórios necessários
-    5. Chore imagens do Docker
-    6. Iniciie o Spark Cluster
-    7. Verificar implantação
-    8. Pare o Spark Cluster
-  - Componentes do Cluster
-  - Acessando Serviços
-  - Tecnologias Incluídas
-  - Solução de problemas
-  - Arquivos de configuração
+- [Cluster Spark com implantação do Docker](#pr-6-cluster-spark-com-implantação-do-docker)
+  - [Configuração do ambiente](#configuração-do-ambiente)
+    1. [Clonando o Repositório](#1-clonando-o-repositório)
+    2. [Navegue até o diretório de construção Build](#2-navegue-até-o-diretório-de-construção-build)
+    3. [Crie o arquivo .env](#3-crie-o-arquivo-env)
+    4. [Crie os diretórios necessários](#4-crie-os-diretórios-necessários)
+    5. [Chore imagens do Docker](#5-crie-imagens-do-docker)
+    6. [Iniciie o Spark Cluster](#6-inicie-o-spark-cluster)
+    7. [Verificar implantação](#7-verificar-implantação)
+    8. [Pare o Spark Cluster](#8-pare-o-spark-cluster)
+  - [Componentes do Cluster](#componentes-do-cluster)
+  - [Acessando Serviços](#acessando-serviços)
+  - [Tecnologias Incluídas](#tecnologias-incluídas)
+  - [Solução de problemas](#troubleshooting-2)
+  - [Arquivos de configuração](#configuration-files)
  
 - [Executando seu primeiro aplicativo Spark distribuído com o Docker Compose](#pr-7-executando-seu-primeiro-aplicativo-spark-distribuído-com-o-docker-compose)
   - [Etapa 1: preparar o script do aplicativo](#etapa-1-preparar-o-script-do-aplicativo)
