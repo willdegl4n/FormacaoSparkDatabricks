@@ -1,4 +1,4 @@
-`Parei a tradução na linha 462`
+`Parei a tradução na linha 890`
 
 # pr-1: Instalação Local do Spark 
 
@@ -460,48 +460,49 @@ Vamos tornar esta aula lendária com uma tarefa prática!
 - **Problemas de recurso**: Se falhar, ajuste o `--driver-memory` (por exemplo: `4g`).
 
 ----
-# pr-4: First Steps with Spark & Docker
 
-Welcome to the fourth module of this training course! After mastering local Spark installation (`pr-1.md`), Spark Shell (`pr-2.md`), and `spark-submit` (`pr-3.md`), let’s run Spark in a Docker container using `bitnami/spark:latest`. We’ll map our `src/spark/mod-1/scripts/` directory (containing `pr-3-app.py` and `users.json`) to `/app`, set the working directory correctly, and keep the container running for easy access. This is a GOAT (Greatest of All Time) class—let’s get it right!
+# pr-4: Primeiros passos com Spark e Docker ( _o meu lab começa aqui_ )
+
+Bem-vindo ao quarto módulo deste curso de treinamento! Depois de dominar a instalação local do Spark (`pr-1.md`), o Spark Shell (`pr-2.md`), e `spark-submit` (`pr-3.md`),vamos executar o Spark em um contêiner Docker usando `bitnami/spark:latest`. Mapearemos nosso diretorio `src/spark/mod-1/scripts/` (contendo `pr-3-app.py` e `users.json`) para `/app`, definiremos o diretório de trabalho corretamente e manteremos o contêiner em execução para facilitar o acesso. Esta é uma aula de GOAT (Melhor de Todos os Tempos) — vamos acertar!
 
 ---
 
-## Prerequisites
+## Pré-requisitos
 
-- **Docker**: Installed and running (Windows, macOS, or Linux).
-  - Get it from [docker.com](https://www.docker.com/get-started).
-- Terminal access: Command Prompt (Windows), Terminal (macOS/Linux).
-- The project files in `src/spark/mod-1/scripts/`:
+- **Docker**: instalado e em execução (Windows, macOS ou Linux).
+  - Obtenha-o em [docker.com](https://www.docker.com/get-started).
+- Acesso ao terminal: Prompt de Comando (Windows), Terminal (macOS/Linux).
+- Os arquivos do projeto em `src/spark/mod-1/scripts/`:
   - `pr-3-app.py`
   - `users.json`
-- Internet access to pull the image.
+- Acesso à Internet para extrair a imagem.
 
 ---
 
-## Why Docker?
+## Por que o Docker?
 
-Docker provides a consistent, pre-configured Spark environment. With `bitnami/spark:latest`, we’ll run your app without local setup hassles, ensuring files are mapped and accessible.
+O Docker oferece um ambiente Spark consistente e pré-configurado. Com ele `bitnami/spark:latest`, executaremos seu aplicativo sem complicações de configuração local, garantindo que os arquivos sejam mapeados e acessíveis.
 
 ---
 
-## Step 1: Pull the Docker Image
+## Etapa 1: Puxe a imagem do Docker
 
-1. Open your terminal.
-2. Pull the image:
+1. Abra seu terminal.
+2. Baixe a imagem:
    ```bash
    docker pull bitnami/spark:latest
    ```
-3. Verify:
+3. Verifique:
    ```bash
    docker images
    ```
-   - Look for `bitnami/spark` with `latest`.
+   - Procure `bitnami/spark` com `latest`.
 
 ---
 
-## Step 2: Prepare Your Files
+## Etapa 2: Prepare seus arquivos
 
-The script `pr-3-app.py` expects `users.json` in its working directory:
+O Script `pr-3-app.py` precisa do `users.json` no mesmo diretorio de trabalho:
 
 ```python
 from pyspark.sql import SparkSession
@@ -517,56 +518,57 @@ df_users.show(3)
 spark.stop()
 ```
 
-- **Location**: Ensure `pr-3-app.py` and `users.json` are in `src/spark/mod-1/scripts/`.
-- **Mapping**: We’ll map this to `/app` and set it as the working directory.
+- **Localização**: Certifique-se de que `pr-3-app.py` e `users.json` estão em `src/spark/mod-1/scripts/`.
+- **Mapeamento**: Mapearemos isso em `/app` e o definiremos como o diretório de trabalho.
 
 ---
 
-## Step 3: Run a Persistent Container
+## Etapa 3: executar um contêiner persistente
 
-Let’s run the container in the background with the correct working directory:
+Vamos executar o contêiner em segundo plano com o diretório de trabalho correto:
 
-1. Start the container:
+1. Inicie o contêiner::
    ```bash
-   docker run -d --name spark-container -v /absolute/path/to/src/spark/mod-1/scripts:/app -w /app bitnami/spark:latest tail -f /dev/null
+   docker run -d --name spark-container --user root -v /absolute/path/to/src/spark/mod-1/scripts:/app -w /app -e HOME=/root bitnami/spark:latest tail -f /dev/null
    ```
-   - `-d`: Detached mode (background).
-   - `--name spark-container`: Easy reference.
-   - `-v`: Maps `scripts/` to `/app`.
-   - `-w /app`: Sets `/app` as the working directory.
-   - `tail -f /dev/null`: Keeps it running.
-   - Replace `/absolute/path/to/` with your path.
+   - `-d`: Modo Detached (em background).
+   - `--name spark-container`: Nome do container.
+   - `--user root`: Execulta como root
+   - `-v`: Maps `scripts/` para `/app`.
+   - `-w /app`: define `/app` como diretorio de trabalho.
+   - `tail -f /dev/null`: mantem tudo funcionando (execultando).
+   - Substitua `/absolute/path/to/` pelo seu caminho.
 
-   **Your Specific Command**:
+   **Meu comando específico**:
    ```bash
-   docker run -d --name spark-container -v /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/spark/mod-1/scripts:/app -w /app bitnami/spark:latest tail -f /dev/null
+   docker run -d --name spark-container --user root -v /home/willdeglan/frm-spark-databricks-mec/src/spark/mod-1/scripts:/app -w /app -e HOME=/root bitnami/spark:latest tail -f /dev/null
    ```
 
-2. Verify it’s running:
+2. Verifique se está em execução:
    ```bash
    docker ps
    ```
-   - Look for `spark-container`.
+   - Localize `spark-container`.
 
-3. Check the files:
+3. Verifique os arquivos:
    ```bash
    docker exec spark-container ls -la /app
    ```
-   - Confirms `pr-3-app.py` and `users.json` are present.
+   - Confirme se o `pr-3-app.py` e `users.json` estão presente.
 
 ---
 
-## Step 4: Execute Spark-Submit
+## Etapa 4: execute Spark-Submit
 
-Run the script in the running container:
+Execute o script no contêiner em execução:
 
 1. Execute:
    ```bash
    docker exec spark-container spark-submit pr-3-app.py
    ```
-   - Since the working directory is `/app`, `users.json` is found automatically.
+   - Como o diretório de trabalho é `/app`, o `users.json` é encontrado automaticamente.
 
-2. **Expected Output**:
+2. **Output esperada**:
    ```
    1
    +--------------------+----+-----+--------------------+--------------------+--------------------+---------+--------------------+--------------------+
@@ -578,43 +580,43 @@ Run the script in the running container:
 
 ---
 
-## Step 5: Customizing with Spark-Submit
+## Etapa 5: Personalização com Spark-Submit
 
-Add options from the running container:
+Adicione opções do contêiner em execução:
 
-1. **Set Master**:
+1. **definição do Master**:
    ```bash
    docker exec spark-container spark-submit --master local[2] pr-3-app.py
    ```
 
-2. **Add Configuration**:
+2. **Configurações adicionais**:
    ```bash
    docker exec spark-container spark-submit --conf spark.driver.memory=2g pr-3-app.py
    ```
 
-3. **Verbose Mode**:
+3. **Modo Verbose**:
    ```bash
    docker exec spark-container spark-submit --verbose pr-3-app.py
    ```
 
 ---
 
-## Step 6: Hands-On Exercise
+## Etapa 6: Exercício prático
 
-1. **New Script**:
-   - Copy `pr-3-app.py` to `pr-4-exercise.py` in `scripts/`.
-   - Add before `spark.stop()`:
+1. **Novo Script**:
+   - Copiar `pr-3-app.py` para `pr-4-exercise.py` dentro de `scripts/`.
+   - Adicionar antes `spark.stop()`:
      ```python
      df_users.select("city", "phone_number").show()
      ```
 
-2. **Run It**:
+2. **Execute-o**:
    ```bash
    docker exec spark-container spark-submit pr-4-exercise.py
    ```
 
-3. **Expected Output**:
-   - Original output, then:
+3. **Output esperado**:
+   - Output original, então:
      ```
      +------+--------------------+
      |  city|        phone_number|
@@ -623,8 +625,8 @@ Add options from the running container:
      +------+--------------------+
      ```
 
-4. **Challenge**:
-   - Modify `pr-4-exercise.py` to filter `country == "BR"` and show `email`. Run:
+4. **Desafio**:
+   - Modifique `pr-4-exercise.py` para filtrar `country == "BR"` e exibir `email`. Execute:
      ```bash
      docker exec spark-container spark-submit --master local[4] pr-4-exercise.py
      ```
@@ -632,80 +634,85 @@ Add options from the running container:
 
 ---
 
-## Step 7: Stop the Container
+## Etapa 7: Parar o contêiner
 
-When finished:
+Quando terminar:
 ```bash
 docker stop spark-container
 docker rm spark-container
 ```
+`stop`: para 
+`rm`: apaga
 
 ---
 
 ## Troubleshooting
 
-- **Path Not Found Error**:
-  - **Check Mapping**:
+- **Erro de caminho não encontrado**:
+  - **Verifique o mapeamento**:
     ```bash
     docker exec spark-container ls -la /app
     ```
-    - If empty, verify the local path:
+    - Se vazio, verifique o caminho local:
       ```bash
-      ls -la /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/spark/mod-1/scripts
+      ls -la /home/willdeglan/frm-spark-databricks-mec/src/spark/mod-1/scripts
       ```
-  - **Docker Permissions (macOS)**:
+  - **Permissões do Docker (macOS)**:
     - Docker Desktop > Settings > Resources > File Sharing.
-    - Add `/Users/luanmorenomaciel/GitHub/` and restart Docker.
-- **Container Exited**:
-  - Check `docker ps -a`. Restart with:
+    - Adicione `/home/willdeglan/` e reinicie o Docker.
+      
+- **Container saiu**:
+  - verifique com `docker ps -a`. Reinicie com:
     ```bash
     docker start spark-container
     ```
-- **Wrong Directory**: The `-w /app` flag ensures `users.json` is in the working directory.
+- **Diretório errado**: a flag `-w /app` garante que o `users.json` está no diretorio de trabalho.
 
 
 
-# pr-5: Building Your First Docker Custom Spark Image
+# pr-5: Criando sua primeira imagem personalizada do Docker no Spark
 
-Welcome to the fifth module of this training course! After running Spark in a Docker container (`pr-4.md`), let’s build a custom Docker image based on `bitnami/spark:latest`. We’ll create a `Dockerfile` in `src/spark/mod-1/scripts/`, add layers with our app files (`pr-3-app.py` and `users.json`), and run it. This is a simple, step-by-step GOAT (Greatest of All Time) class to prep you for distributed systems next!
+Bem-vindo ao quinto módulo deste curso de treinamento! Após executar o Spark em um contêiner Docker (`pr-4.md`), vamos criar uma imagem Docker personalizada baseada em `bitnami/spark:latest`. Criamos um `Dockerfile` em `src/spark/mod-1/scripts/`,  adicionaremos camadas com nossos arquivos de aplicativo (`pr-3-app.py` e `users.json`), e o executaremos. Esta é uma aula simples e passo a passo sobre o GOAT (o Maior de Todos os Tempos) para prepará-lo para sistemas distribuídos!
+
+
 
 ---
 
-## Prerequisites
+## Pré-requisitos
 
-- **Docker**: Installed and running (Windows, macOS, or Linux).
-  - Get it from [docker.com](https://www.docker.com/get-started).
-- Terminal access: Command Prompt (Windows), Terminal (macOS/Linux).
-- The project files in `src/spark/mod-1/scripts/`:
+- **Docker**: instalado e em execução (Windows, macOS ou Linux).
+	- Obtenha-o em [docker.com](https://www.docker.com/get-started).
+- Acesso ao terminal: Prompt de Comando (Windows), Terminal (macOS/Linux).
+- Os arquivos do projeto estão em `src/spark/mod-1/scripts/`:
   - `pr-3-app.py`
   - `users.json`
-- Internet access to pull `bitnami/spark:latest`.
+- Acesso à Internet para baixar `bitnami/spark:latest`.
 
 ---
 
-## Why Build a Custom Image?
+## Por que criar uma imagem personalizada?
 
-A custom image packages your app with Spark, ensuring portability and consistency. By placing the `Dockerfile` in `scripts/`, we’ll streamline file inclusion and build a reusable image.
+Uma imagem personalizada empacota seu aplicativo com o Spark, garantindo portabilidade e consistência. Ao colocar o  `Dockerfile` em `scripts/`, simplificaremos a inclusão de arquivos e criaremos uma imagem reutilizável.
 
 ---
 
-## Step 1: Set Up Your Dockerfile
+## Etapa 1: configure seu Dockerfile
 
-1. **Navigate to Scripts**:
-   - Go to `src/spark/mod-1/scripts/`:
+1. **Navegue até Scripts**:
+   - Vá para  `src/spark/mod-1/scripts/`:
      ```bash
-     cd /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/spark/mod-1/scripts/
+     cd /home/willdeglan/frm-spark-databricks-mec/src/spark/mod-1/scripts/
      ```
 
-2. **Verify Files**:
-   - Check the directory:
+2. **Verificar arquivos**:
+   - Verifique o diretório:
      ```bash
      ls -la
      ```
-   - Ensure `pr-3-app.py` and `users.json` are present.
+   - Garantir que `pr-3-app.py` e `users.json` estão no diretorio.
 
-3. **Create the Dockerfile**:
-   - Create `Dockerfile` with:
+3. **Crie o Dockerfile**:
+   - Crie o `Dockerfile` com:
      ```Dockerfile
      # Base image
      FROM bitnami/spark:latest
@@ -723,49 +730,49 @@ A custom image packages your app with Spark, ensuring portability and consistenc
      # Keep container running
      CMD ["tail", "-f", "/dev/null"]
      ```
-   - **Notes**:
-     - `COPY pr-3-app.py /app/`: Copies from `scripts/` (build context) to `/app`.
-     - No complex paths since files are local to the `Dockerfile`.
+   - **Notas**:
+     - `COPY pr-3-app.py /app/`: Copia de `scripts/` (contexto de constuçao (build)) para `/app`.
+     - Não há caminhos complexos, pois os arquivos são locais no `Dockerfile`.
 
 ---
 
-## Step 2: Build the Custom Image
+## Etapa 2: Crie a imagem personalizada
 
-1. **Build the Image**:
-   - From `src/spark/mod-1/scripts/`:
+1. **Construir a imagem (Build)**:
+   - De `src/spark/mod-1/scripts/`:
      ```bash
      docker build -t my-spark-app:latest .
      ```
-   - `-t my-spark-app:latest`: Names the image.
-   - `.`: Uses `scripts/` as the build context.
+   - `-t my-spark-app:latest`: nomeia a imagem.
+   - `.`: usa `scripts/` como contexto de construção.
 
 2. **Verify**:
    ```bash
    docker images
    ```
-   - Look for `my-spark-app:latest`.
+   - procurar por `my-spark-app:latest`.
 
 ---
 
-## Step 3: Run Your Custom Image
+## Etapa 3: execute sua imagem personalizada
 
-1. **Start the Container**:
+1. **Inicie o contêiner**:
    ```bash
    docker run -d --name my-spark-container my-spark-app:latest
    ```
 
-2. **Check Files**:
+2. **Verificar arquivos**:
    ```bash
    docker exec my-spark-container ls -la /app
    ```
-   - Confirms `pr-3-app.py` and `users.json`.
+   - Confirme `pr-3-app.py` e `users.json`.
 
-3. **Run Spark-Submit**:
+3. **Execute Spark-Submit**:
    ```bash
    docker exec my-spark-container spark-submit pr-3-app.py
    ```
 
-4. **Expected Output**:
+4. **Output esperado**:
    ```
    1
    +--------------------+----+-----+--------------------+--------------------+--------------------+---------+--------------------+--------------------+
@@ -777,24 +784,24 @@ A custom image packages your app with Spark, ensuring portability and consistenc
 
 ---
 
-## Step 4: Customize with Spark-Submit
+## Etapa 4: personalize com Spark-Submit
 
-1. **Set Master**:
+1. **Definir o Master**:
    ```bash
    docker exec my-spark-container spark-submit --master local[2] pr-3-app.py
    ```
 
-2. **Verbose Mode**:
+2. **Modo Verbose**:
    ```bash
    docker exec my-spark-container spark-submit --verbose pr-3-app.py
    ```
 
 ---
 
-## Step 5: Hands-On Exercise
+## Etapa 5: Exercício prático
 
-1. **New Script**:
-   - In `scripts/`, create `pr-5-exercise.py`:
+1. **Novo Script**:
+   - em `scripts/`, crie `pr-5-exercise.py`:
      ```python
      from pyspark.sql import SparkSession
 
@@ -808,7 +815,7 @@ A custom image packages your app with Spark, ensuring portability and consistenc
      spark.stop()
      ```
 
-2. **Update Dockerfile**:
+2. **Atualização do Dockerfile**:
    ```Dockerfile
    FROM bitnami/spark:latest
    WORKDIR /app
@@ -825,21 +832,21 @@ A custom image packages your app with Spark, ensuring portability and consistenc
    ```
 
 4. **Run It**:
-   - Stop and remove:
+   - Parar e remover:
      ```bash
      docker stop my-spark-container
      docker rm my-spark-container
      ```
-   - Start:
+   - Iniciar :
      ```bash
      docker run -d --name my-spark-container my-spark-app:latest
      ```
-   - Execute:
+   - Executar:
      ```bash
      docker exec my-spark-container spark-submit pr-5-exercise.py
      ```
 
-5. **Expected Output**:
+5. **Output esperado**:
    ```
    +--------------------+------+
    |               email|  city|
@@ -848,12 +855,12 @@ A custom image packages your app with Spark, ensuring portability and consistenc
    +--------------------+------+
    ```
 
-6. **Challenge**:
-   - Add `RUN pip install pandas` to the `Dockerfile`, rebuild, and rerun `pr-5-exercise.py`.
+6. **Desafio**:
+   - adicione `RUN pip install pandas` ao `Dockerfile`, rebuilda, e re-execute o `pr-5-exercise.py`.
 
 ---
 
-## Step 6: Stop the Container
+## Etapa 6: Pare o contêiner
 
 ```bash
 docker stop my-spark-container
@@ -864,19 +871,22 @@ docker rm my-spark-container
 
 ## Troubleshooting
 
-- **COPY Error**:
-  - Verify files:
+- **Erro de CÓPIA**:
+  - Verificar arquivos:
     ```bash
-    ls -la /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/spark/mod-1/scripts/
+    ls -la /home/willdeglan/frm-spark-databricks-mec/src/spark/mod-1/scripts/
     ```
-  - Ensure `pr-3-app.py` and `users.json` are in `scripts/`.
-- **Permission Issues (macOS)**:
+  - Garanta que `pr-3-app.py` e `users.json` esteja em `scripts/`.
+    
+- **Problemas de permissão (macOS)**:
   - Docker Desktop > Settings > Resources > File Sharing > Add `/Users/luanmorenomaciel/GitHub/`.
-- **Build Fails**:
-  - Add `--no-cache` if needed:
+- **Falhas de Build**:
+  - Adicione `--no-cache` se necessário:
     ```bash
     docker build -t my-spark-app:latest --no-cache .
     ```
+
+----
 
 # pr-6: Spark Cluster with Docker Deployment
 
