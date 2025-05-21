@@ -971,8 +971,8 @@ cd build
 ### 3. Crie o arquivo .env
 Crie um arquivo `.env` no diretório build com o seguinte conteúdo:
 ```bash
-APP_SRC_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/src
-APP_STORAGE_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/storage
+APP_SRC_PATH=/home/willdeglan/github/frm-spark-databricks-mec/src
+APP_STORAGE_PATH=/home/willdeglan/github/frm-spark-databricks-mec/storage
 APP_LOG_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/logs
 APP_METRICS_PATH=/home/willdeglan/github/frm-spark-databricks-mec/build/metrics
 ```
@@ -1052,7 +1052,7 @@ Em `pr-6.md`, você configura um cluster Spark distribuído com o Docker Compose
 - **Docker e Docker Compose**: instalados e em execução (Windows, macOS ou Linux).
 - **Spark Cluster**: Executando a partir de `pr-6.md`.  Inicie-o a partir de `/build/` se precisar:
   ```bash
-  cd /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/build/
+  cd /home/willdeglan/github/frm-spark-databricks-mec/build/
   docker-compose up -d
   ```
 - **Arquivos**:
@@ -1097,7 +1097,7 @@ Usaremos o script fornecido, garantindo que ele esteja pronto para o cluster.
 2. **Verificar dados**:
    - Certifique-se de que `users.json` está em `src/storage/`:
      ```bash
-     ls -la /Users/luanmorenomaciel/GitHub/frm-spark-databricks-mec/src/storage/
+     ls -la /home/willdeglan/github/frm-spark-databricks-mec/src/storage/
      ```
 
 ---
