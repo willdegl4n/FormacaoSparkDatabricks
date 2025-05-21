@@ -1053,7 +1053,7 @@ Em `pr-6.md`, você configura um cluster Spark distribuído com o Docker Compose
 - **Spark Cluster**: Executando a partir de `pr-6.md`.  Inicie-o a partir de `/build/` se precisar:
   ```bash
   cd /home/willdeglan/github/frm-spark-databricks-mec/build/
-  docker-compose up -d
+  docker compose up -d
   ```
 - **Arquivos**:
   - Applicação: `src/app/get-users-json.py`
